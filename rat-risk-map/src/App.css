@@ -14,7 +14,54 @@ body,
   font-weight: 600;
   background: #1f2937;
   color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.stats {
+  font-weight: 400;
+  font-size: 14px;
+  opacity: 0.85;
+}
+.map-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
 }
 .map {
-  flex: 1;
+  position: absolute;
+  inset: 0;
+}
+.legend {
+  position: absolute;
+  right: 12px;
+  bottom: 24px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+.legend-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.6;
+}
+.swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.legend-note {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #555;
 }
