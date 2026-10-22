@@ -1,16 +1,70 @@
-# React + Vite
+# 鼠患風險地圖
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+台北市「市政松」題目 #3 的練習作品。把歷史通報與下水道人孔分布整合到 500 公尺網格，
+算出相對風險分數，讓使用者調整權重、查看每格分數的組成，並得到優先處理清單。
 
-Currently, two official plugins are available:
+線上版：（部署後貼上網址）
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 功能
 
-## React Compiler
+- 風險分數地圖：依權重由通報與人孔計算，可切換成「通報數」「人孔數」圖層
+- 權重滑桿：拖動後地圖與排名即時更新
+- 格子詳情：點任一格，看分數由哪些特徵貢獻
+- 優先處理前 10 格：點清單會飛到該格
+- 資料說明面板：列出每份資料的來源、處理方式、真實或模擬、假設與限制
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 資料說明
 
-## Expanding the ESLint configuration
+真實資料：
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 見鼠地圖 Rat Radar 公開 CSV：只保留已審核、位於臺北市的「鼠蹤」通報，聚合到網格；不保留說明與照片
+- 臺北市雨水下水道人孔（data.taipei）：只保留使用中的「正常人孔」，依市府電話說明，因為虛人孔沒有孔、覆蓋人孔無法開啟
+
+模擬資料：
+
+- 目前沒有。餐飲密度、清運落差與繁殖期係數規劃中，加入時會以模擬資料呈現，並在介面與本文件標示
+
+## 模型假設
+
+- 預設權重各 50% 是練習用假設，沒有實證依據
+- 各特徵以第 95 百分位縮放到 0–1，超過者算 1
+- 風險分數是格子間的相對排序，不是老鼠數量或發生機率的預測
+
+## 已知限制
+
+- 通報反映「哪裡有人願意通報」，不等於老鼠數量
+- 通報資料只涵蓋 2026 年 5 月至 9 月，看不出季節規律
+- 通報數與人孔數相關係數約 0.30，人孔不能單獨代表鼠患
+- 使用的是雨水人孔，只是管道密度的替代指標
+- 位置名稱取格內最多的行政里，有 76 格跨越多個行政區，僅供參考
+
+## 隱私
+
+- 公開網頁只含 500 公尺網格的彙總數字，不含單筆通報位置、說明或照片
+- 本專案沒有使用任何真實個資
+- 見鼠地圖是民間資料，這裡僅作練習；正式使用前需確認授權
+
+## 重現資料流程
+
+原始資料不放在版本庫中。下載後放進 `data/raw/`：
+
+- `ratdar.csv`：https://ratdar.taipei/reports/export
+- `manholes.csv`：data.taipei「臺北市雨水下水道人孔資料」
+
+然後執行：
+
+    npm install
+    npm run data
+    npm run dev
+
+## 技術
+
+Vite、React、Leaflet、Turf.js、proj4（TWD97 轉經緯度）。沒有後端；資料處理腳本在本機執行，
+輸出聚合後的 `public/data/grid.geojson`，網頁直接讀取。
+
+## 專案結構
+
+- `scripts/`：資料清理與網格處理腳本（01 清理、02 建網格、03 人孔、04 位置標籤）
+- `public/data/`：網頁讀取的聚合資料
+- `src/lib/`：風險分數計算與資料來源設定
+- `src/components/`：資料來源徽章、資料說明面板

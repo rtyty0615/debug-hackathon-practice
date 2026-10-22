@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "data": "node scripts/01-clean-ratdar.js && node scripts/01-clean-manholes.js && node scripts/02-make-grid.js && node scripts/03-add-manholes.js && node scripts/04-add-labels.js"
   },
   "dependencies": {
     "@turf/turf": "^7.4.0",
