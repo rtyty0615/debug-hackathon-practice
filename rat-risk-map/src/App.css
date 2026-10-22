@@ -88,3 +88,43 @@ body,
   background: #1f2937;
   color: #fff;
 }
+
+.weights {
+  position: absolute;
+  left: 12px;
+  bottom: 24px;
+  z-index: 1000;
+  width: 240px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+.weights-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.weight-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 2;
+}
+.weight-name {
+  width: 84px;
+  flex-shrink: 0;
+}
+.weight-row input {
+  flex: 1;
+  min-width: 0;
+}
+.weight-val {
+  width: 24px;
+  text-align: right;
+}
+.weights-note {
+  margin-top: 4px;
+  font-size: 11px;
+  color: #555;
+}
