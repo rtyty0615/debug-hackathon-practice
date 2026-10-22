@@ -35,7 +35,6 @@ fs.writeFileSync("public/data/grid.geojson", JSON.stringify(grid));
 
 // ---- 統計 ----
 const mh = grid.features.map((f) => f.properties.manholes);
-const rp = grid.features.map((f) => f.properties.reports);
 const nonZero = mh.filter((n) => n > 0).sort((a, b) => a - b);
 
 console.log(
