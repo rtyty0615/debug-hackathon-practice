@@ -3,6 +3,8 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./App.css";
 import { FEATURES, breakdown, makeNormalizers, scoreCell } from "./lib/score";
+import Badge from "./components/Badge";
+import AboutModal from "./components/AboutModal";
 
 const HEAT = ["#ffffb2", "#fecc5c", "#fd8d3c", "#f03b20", "#bd0026"];
 const RED = ["#fee5d9", "#fcae91", "#fb6a4a", "#de2d26", "#a50f15"];
@@ -32,6 +34,8 @@ const LAYERS = {
     source: "雨水人孔，僅正常人孔（真實）",
   },
 };
+
+const LAYER_PROVENANCE = { risk: "model", reports: "real", manholes: "real" };
 
 const place = (p) =>
   p.district
@@ -72,6 +76,7 @@ export default function App() {
   const [grid, setGrid] = useState(null);
   const [active, setActive] = useState("risk");
   const [selectedId, setSelectedId] = useState(null);
+  const [showAbout, setShowAbout] = useState(false);
   const [weights, setWeights] = useState(() =>
     Object.fromEntries(FEATURES.map((f) => [f.key, f.defaultWeight])),
   );
@@ -224,7 +229,7 @@ export default function App() {
   return (
     <div className="app">
       <header className="topbar">
-        鼠患風險地圖（練習版）
+        <span>鼠患風險地圖（練習版）</span>
         {summary && (
           <span className="stats">
             {active === "risk"
@@ -232,6 +237,9 @@ export default function App() {
               : `${summary.cells} 格有資料・共 ${summary.total}`}
           </span>
         )}
+        <button className="about-btn" onClick={() => setShowAbout(true)}>
+          資料說明
+        </button>
       </header>
 
       <div className="main">
@@ -255,7 +263,9 @@ export default function App() {
               <div className="weights-title">風險權重</div>
               {FEATURES.map((f) => (
                 <label key={f.key} className="weight-row">
-                  <span className="weight-name">{f.label}</span>
+                  <span className="weight-name">
+                    {f.label} <Badge kind={f.provenance} />
+                  </span>
                   <input
                     type="range"
                     min="0"
@@ -280,7 +290,9 @@ export default function App() {
 
           {scale && (
             <div className="legend">
-              <div className="legend-title">每格{cfg.label}</div>
+              <div className="legend-title">
+                每格{cfg.label} <Badge kind={LAYER_PROVENANCE[active]} />
+              </div>
               {scale.labels.map((label, k) => (
                 <div key={label} className="legend-row">
                   <span
@@ -357,6 +369,8 @@ export default function App() {
           </section>
         </aside>
       </div>
+
+      {showAbout && <AboutModal onClose={() => setShowAbout(false)} />}
     </div>
   );
 }

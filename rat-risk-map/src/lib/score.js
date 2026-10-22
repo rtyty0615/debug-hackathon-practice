@@ -1,8 +1,24 @@
-// 之後要加新特徵（餐飲、清運落差…），只要在這裡多加一行，
-// 並確保 grid.geojson 的每格都有對應欄位。
+// 之後要加新特徵（餐飲、清運落差…），在這裡多加一筆，
+// 並確保 grid.geojson 的每格都有對應欄位；徽章與資料說明會自動更新。
 export const FEATURES = [
-  { key: "reports", label: "歷史通報", defaultWeight: 50 },
-  { key: "manholes", label: "人孔（管道）", defaultWeight: 50 },
+  {
+    key: "reports",
+    label: "歷史通報",
+    defaultWeight: 50,
+    provenance: "real",
+    source: "見鼠地圖 Rat Radar 公開 CSV",
+    processing:
+      "只保留已審核、位於臺北市的「鼠蹤」通報（約 4.5 個月，892 筆）；聚合到 500 公尺格，不保留說明與照片。",
+  },
+  {
+    key: "manholes",
+    label: "人孔（管道）",
+    defaultWeight: 50,
+    provenance: "real",
+    source: "臺北市雨水下水道人孔資料（data.taipei）",
+    processing:
+      "只保留使用中的「正常人孔」（10,955 個，依市府電話說明）；作為地下管道密度的替代指標。",
+  },
 ];
 
 // 把每個特徵縮放到 0–1：除以該特徵的「第95百分位」，超過的算 1。
