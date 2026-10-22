@@ -39,6 +39,7 @@ for (const r of s2) {
   }
   cleaned.push({
     district: r["行政區"],
+    village: r["行政里"],
     kind: r["人孔種類"],
     lat: Number(lat.toFixed(5)),
     lng: Number(lng.toFixed(5)),

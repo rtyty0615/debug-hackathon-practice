@@ -32,3 +32,17 @@ export function scoreCell(props, features, weights, norm) {
   }
   return total === 0 ? 0 : (sum / total) * 100;
 }
+
+// 把一格的分數拆解成各特徵的貢獻（加起來等於風險分數）
+export function breakdown(props, features, weights, norm) {
+  const total = features.reduce((s, f) => s + (weights[f.key] ?? 0), 0);
+  return features.map(({ key, label }) => {
+    const w = weights[key] ?? 0;
+    return {
+      key,
+      label,
+      raw: props[key],
+      points: total === 0 ? 0 : ((w * norm[key](props[key])) / total) * 100,
+    };
+  });
+}

@@ -128,3 +128,110 @@ body,
   font-size: 11px;
   color: #555;
 }
+
+.main {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+.sidebar {
+  width: 300px;
+  overflow-y: auto;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 1px solid #e5e7eb;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.sidebar h2 {
+  font-size: 14px;
+  margin: 0 0 8px;
+  color: #374151;
+}
+.sidebar section + section {
+  margin-top: 20px;
+}
+.hint {
+  color: #6b7280;
+  margin: 0;
+}
+.detail-place {
+  font-weight: 600;
+  font-size: 16px;
+}
+.detail-score {
+  margin: 2px 0 10px;
+}
+.detail-score small {
+  margin-left: 6px;
+  color: #6b7280;
+}
+.part {
+  margin-bottom: 8px;
+}
+.part-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+.bar {
+  height: 8px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  background: #f97316;
+}
+.detail-note {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #6b7280;
+}
+.toplist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.toplist button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: left;
+}
+.toplist button:hover {
+  background: #f3f4f6;
+}
+.toplist button.on {
+  background: #ffedd5;
+}
+.rank {
+  width: 18px;
+  color: #6b7280;
+}
+.place {
+  flex: 1;
+}
+.pts {
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: auto;
+    max-height: 45%;
+    border-left: 0;
+    border-top: 1px solid #e5e7eb;
+  }
+}
