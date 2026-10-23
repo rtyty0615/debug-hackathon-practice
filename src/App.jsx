@@ -17,7 +17,7 @@ const LAYERS = {
     stroke: "#7c2d12",
     fixedCuts: [20, 40, 60, 80],
     fmt: (v) => `風險 ${Math.round(v)} 分`,
-    source: "依權重由通報與人孔計算（練習版模型）",
+    source: "依權重由通報與人孔計算",
   },
   reports: {
     label: "通報數",
@@ -229,7 +229,7 @@ export default function App() {
   return (
     <div className="app">
       <header className="topbar">
-        <span>鼠患風險地圖（練習版）</span>
+        <span>鼠患風險地圖</span>
         {summary && (
           <span className="stats">
             {active === "risk"
@@ -283,7 +283,7 @@ export default function App() {
                 </label>
               ))}
               <div className="weights-note">
-                只看相對比例；預設各半是練習用假設
+                只看相對比例；預設各半為初始假設
               </div>
             </div>
           )}
